@@ -6,7 +6,8 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        return Content("Index action");
+        return View();
+        //return Content("Index action");
         //return new ViewResult();
     }
 
