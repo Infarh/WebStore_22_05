@@ -28,4 +28,13 @@ public class HomeController : Controller
     {
         return View(__Employees);
     }
+
+    public IActionResult EmployeDetails(int Id)
+    {
+        var employee = __Employees.FirstOrDefault(x => x.Id == Id);
+        if (employee is null)
+            return NotFound();
+
+        return View(employee);
+    }
 }
