@@ -37,4 +37,8 @@ public class HomeController : Controller
 
         return View(employee);
     }
+
+    public IActionResult Contacts() => View();
+
+    public IActionResult Error404() => View();
 }
