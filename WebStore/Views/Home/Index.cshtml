@@ -1,22 +1,19 @@
-﻿
-@{
-    Layout = null;
-}
+﻿<partial name="Partial/_Slider"/>
 
-<!DOCTYPE html>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="Partial/_LeftSideBar"/>
+            </div>
+            
+            <div class="col-sm-9 padding-right">
+                <partial name="Partial/_Products"/>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <h3>Index!</h3>
-<p>Первое представление</p>
-<a href="/Home/Employees">Список сотрудников</a>
+                <partial name="Partial/_CategoryTab"/>
 
-<p>
-    <img src="/qr/code?str=QWE" width="180"/>
-</p>
-</body>
-</html>
+                <partial name="Partial/_RecomendedItems"/>
+            </div>
+        </div>
+    </div>
+</section>
