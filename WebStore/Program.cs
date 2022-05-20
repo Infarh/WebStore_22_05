@@ -1,3 +1,5 @@
+using WebStore.Infrastructure.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
@@ -13,7 +15,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseMiddleware<TestMiddleware>();
+
 app.MapGet("/greetings", () => app.Configuration["ServerGreetings"]);
+
+app.UseWelcomePage("/welcome");
 
 app.MapControllerRoute(
     name: "default",
