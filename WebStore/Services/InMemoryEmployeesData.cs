@@ -48,6 +48,8 @@ public class InMemoryEmployeesData : IEmployeesData
 
         // Если работа с БД, то не забыть вызвать SaveChanges() тут!
 
+        _Logger.LogInformation("Сотрудник {0} добавлен", employee);
+
         return employee.Id;
     }
 
@@ -61,7 +63,10 @@ public class InMemoryEmployeesData : IEmployeesData
 
         var db_employee = GetById(employee.Id);
         if (db_employee is null)
+        {
+            _Logger.LogWarning("При попытке редактирования сотрудника {0} - запись не найдена", employee);
             return false;
+        }
 
         db_employee.Id = employee.Id;
         db_employee.LastName = employee.LastName;
@@ -71,6 +76,8 @@ public class InMemoryEmployeesData : IEmployeesData
 
         // Если работа с БД, то не забыть вызвать SaveChanges() тут!
 
+        _Logger.LogInformation("Сотрудник {0} отредактирован", employee);
+
         return true;
     }
 
@@ -78,9 +85,16 @@ public class InMemoryEmployeesData : IEmployeesData
     {
         var employee = GetById(Id);
         if (employee is null)
+        {
+            //_Logger.LogWarning($"При попытке удаления сотрудника с id:{Id} - запись не найдена");
+            _Logger.LogWarning("При попытке удаления сотрудника с id:{0} - запись не найдена", Id);
+
             return false;
+        }
 
         _Employees.Remove(employee);
+
+        _Logger.LogInformation("Сотрудник {0} удалён", employee);
 
         return true;
     }
