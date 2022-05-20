@@ -44,6 +44,8 @@ public class InMemoryEmployeesData : IEmployeesData
         employee.Id = _LastFreeId;  // этого тоже делать не надо, если работаем с БД!!!
         _LastFreeId++;              // этого тоже делать не надо, если работаем с БД!!!
 
+        _Employees.Add(employee);
+
         // Если работа с БД, то не забыть вызвать SaveChanges() тут!
 
         return employee.Id;
