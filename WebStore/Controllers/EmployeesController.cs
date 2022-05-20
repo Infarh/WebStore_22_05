@@ -66,5 +66,33 @@ public class EmployeesController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult Delete(int Id) => View();
+    public IActionResult Delete(int Id)
+    {
+        //_Employees.Delete(Id);                    // Так жить нельзя!
+        //return RedirectToAction(nameof(Index));   // Так жить нельзя!
+
+        var employee = _Employees.GetById(Id);
+        if (employee is null)
+            return NotFound();
+
+        var view_model = new EmployeeViewModel
+        {
+            Id = employee.Id,
+            LastName = employee.LastName,
+            Name = employee.FirstName,
+            Patronymic = employee.Patronymic,
+            Age = employee.Age,
+        };
+
+        return View(view_model);
+    }
+
+    [HttpPost]
+    public IActionResult DeleteConfirmed(int Id)
+    {
+        if (!_Employees.Delete(Id))
+            return NotFound();
+
+        return RedirectToAction(nameof(Index));
+    }
 }
