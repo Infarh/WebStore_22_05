@@ -2,9 +2,16 @@
 
 <div class="container">
     <h3>Сотрудники</h3>
+    
+    <p>
+        <a asp-action="Create" class="btn btn-default">Создать</a>
+        <a asp-action="Edit" class="btn btn-default">Создать2</a>
+    </p>
 
     @if (Model.Any())
     {
+        <hr/>
+
         <table class="table">
             <thead>
             <tr>
