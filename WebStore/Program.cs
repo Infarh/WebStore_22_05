@@ -1,7 +1,13 @@
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.Middleware;
+using WebStore.Services;
+using WebStore.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.Services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+builder.Services.AddScoped<IEmployeesData, InMemoryEmployeesData>();        // самый универсальный
+//builder.Services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
 
 builder.Services.AddControllersWithViews(opt =>
 {
