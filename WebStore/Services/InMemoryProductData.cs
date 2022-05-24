@@ -11,7 +11,7 @@ public class InMemoryProductData : IProductData
 
     public IEnumerable<Brand> GetBrands() => TestData.Brands;
 
-    public IEnumerable<Product> GetProducts(ProductFilters? Filter = null)
+    public IEnumerable<Product> GetProducts(ProductFilter? Filter = null)
     {
         IEnumerable<Product> query = TestData.Products;
 

@@ -9,5 +9,5 @@ public interface IProductData
 
     IEnumerable<Brand> GetBrands();
 
-    IEnumerable<Product> GetProducts(ProductFilters? Filter = null);
+    IEnumerable<Product> GetProducts(ProductFilter? Filter = null);
 }

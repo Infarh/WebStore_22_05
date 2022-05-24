@@ -1,6 +1,6 @@
 ﻿namespace WebStore.Domain;
 
-public class ProductFilters
+public class ProductFilter
 {
     public int? SectionId { get; set; }
 
