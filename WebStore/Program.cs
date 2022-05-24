@@ -5,11 +5,11 @@ using WebStore.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-builder.Services.AddScoped<IEmployeesData, InMemoryEmployeesData>();        // самый универсальный
-//builder.Services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
+var services = builder.Services;
+services.AddScoped<IEmployeesData, InMemoryEmployeesData>();        // самый универсальный
+services.AddScoped<IProductData, InMemoryProductData>();
 
-builder.Services.AddControllersWithViews(opt =>
+services.AddControllersWithViews(opt =>
 {
     opt.Conventions.Add(new TestConvention());
 });
