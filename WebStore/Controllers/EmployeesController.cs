@@ -56,6 +56,15 @@ public class EmployeesController : Controller
     [HttpPost]
     public IActionResult Edit(EmployeeViewModel Model)
     {
+        if(Model.LastName == "Qwe" && Model.Name == "Qwe" && Model.Patronymic == "Qwe")
+            ModelState.AddModelError("", "Qwe - плохой выбор");
+
+        if(Model.Name == "Asd")
+            ModelState.AddModelError("Name", "Asd - неважное имя");
+
+        if (!ModelState.IsValid)
+            return View(Model);
+
         var employee = new Employee
         {
             Id = Model.Id,
