@@ -11,20 +11,14 @@ public class CatalogController : Controller
 
     public CatalogController(IProductData ProductData) => _ProductData = ProductData;
 
-    public IActionResult Index(int? SectionId, int? BrandId)
+    public IActionResult Index([Bind("SectionId,BrandId")] ProductFilter filter)
     {
-        var filter = new ProductFilter
-        {
-            BrandId = BrandId,
-            SectionId = SectionId,
-        };
-
         var products = _ProductData.GetProducts(filter);
 
         return View(new CatalogViewModel
         {
-            BrandId = BrandId,
-            SectionId = SectionId,
+            BrandId = filter.BrandId,
+            SectionId = filter.SectionId,
             Products = products
                .OrderBy(p => p.Order)
                .Select(p => new ProductViewModel
