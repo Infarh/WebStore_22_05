@@ -14,6 +14,8 @@ services.AddControllersWithViews(opt =>
     opt.Conventions.Add(new TestConvention());
 });
 
+services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
