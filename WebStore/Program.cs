@@ -5,13 +5,15 @@ using WebStore.Data;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Services.InMemory;
+using WebStore.Services.InSQL;
 using WebStore.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 services.AddScoped<IEmployeesData, InMemoryEmployeesData>();        // самый универсальный
-services.AddScoped<IProductData, InMemoryProductData>();
+//services.AddScoped<IProductData, InMemoryProductData>();
+services.AddScoped<IProductData, SqlProductData>();
 
 services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 services.AddScoped<DbInitializer>();
