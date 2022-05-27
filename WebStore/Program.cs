@@ -27,7 +27,9 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db_initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
-    await db_initializer.InitializeAsync(app.Configuration.GetValue("DbRecreate", false));
+    await db_initializer.InitializeAsync(
+        RemoveBefore: app.Configuration.GetValue("DbRecreate", false),
+        AddTestData: app.Configuration.GetValue("DbAddTestData", false));
 }
 
 if (app.Environment.IsDevelopment())

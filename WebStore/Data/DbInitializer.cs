@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using WebStore.DAL.Context;
 
 namespace WebStore.Data;
@@ -26,7 +27,10 @@ public class DbInitializer
         return result;
     }
 
-    public async Task InitializeAsync(bool RemoveBefore, CancellationToken Cancel = default)
+    public async Task InitializeAsync(
+        bool RemoveBefore,
+        bool AddTestData,
+        CancellationToken Cancel = default)
     {
         _Logger.LogInformation("Инициализация БД...");
 
@@ -39,7 +43,8 @@ public class DbInitializer
         await _db.Database.MigrateAsync(Cancel).ConfigureAwait(false);
         _Logger.LogInformation("Применение миграций БД выполнено");
 
-        await InitializeProductsAsync(Cancel);
+        if (AddTestData)
+            await InitializeProductsAsync(Cancel);
 
         _Logger.LogInformation("Инициализация БД выполнена успешно");
     }
