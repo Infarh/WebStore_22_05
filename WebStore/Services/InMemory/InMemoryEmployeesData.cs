@@ -2,7 +2,7 @@
 using WebStore.Models;
 using WebStore.Services.Interfaces;
 
-namespace WebStore.Services;
+namespace WebStore.Services.InMemory;
 
 public class InMemoryEmployeesData : IEmployeesData
 {
@@ -34,7 +34,7 @@ public class InMemoryEmployeesData : IEmployeesData
 
     public int Add(Employee employee)
     {
-        if(employee is null)
+        if (employee is null)
             throw new ArgumentNullException(nameof(employee));
 
         // это нужно делать только для хранения данных в памяти! Если используется БД, то этого делать не надо!
