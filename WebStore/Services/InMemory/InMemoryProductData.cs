@@ -3,7 +3,7 @@ using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Services.Interfaces;
 
-namespace WebStore.Services;
+namespace WebStore.Services.InMemory;
 
 public class InMemoryProductData : IProductData
 {
@@ -18,7 +18,7 @@ public class InMemoryProductData : IProductData
         //if(Filter != null && Filter.SectionId != null)
         //    query = query.Where(x => x.SectionId == Filter.SectionId);
 
-        if(Filter is { SectionId: { } section_id })
+        if (Filter is { SectionId: { } section_id })
             query = query.Where(x => x.SectionId == section_id);
 
         if (Filter is { BrandId: { } brand_id })
