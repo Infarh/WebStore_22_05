@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain;
+using WebStore.Infrastructure.Mapping;
 using WebStore.Services.Interfaces;
 using WebStore.ViewModels;
 
@@ -8,32 +10,24 @@ namespace WebStore.Controllers;
 public class CatalogController : Controller
 {
     private readonly IProductData _ProductData;
+    private readonly IMapper _Mapper;
 
-    public CatalogController(IProductData ProductData) => _ProductData = ProductData;
-
-    public IActionResult Index(int? SectionId, int? BrandId)
+    public CatalogController(IProductData ProductData, IMapper Mapper)
     {
-        var filter = new ProductFilter
-        {
-            BrandId = BrandId,
-            SectionId = SectionId,
-        };
+        _ProductData = ProductData;
+        _Mapper = Mapper;
+    }
 
+    public IActionResult Index([Bind("SectionId,BrandId")] ProductFilter filter)
+    {
         var products = _ProductData.GetProducts(filter);
 
         return View(new CatalogViewModel
         {
-            BrandId = BrandId,
-            SectionId = SectionId,
-            Products = products
-               .OrderBy(p => p.Order)
-               .Select(p => new ProductViewModel
-                {
-                   Id = p.Id,
-                   Name = p.Name,
-                   Price = p.Price,
-                   ImageUrl = p.ImageUrl,
-                }),
+            BrandId = filter.BrandId,
+            SectionId = filter.SectionId,
+            Products = products.OrderBy(p => p.Order).Select(p => _Mapper.Map<ProductViewModel>(p))
+            //Products = products.OrderBy(p => p.Order).ToView()!,
         });
     }
 }

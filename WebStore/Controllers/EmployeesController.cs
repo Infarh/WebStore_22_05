@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using WebStore.Infrastructure.Mapping;
 using WebStore.Models;
 using WebStore.Services.Interfaces;
 using WebStore.ViewModels;
@@ -10,8 +11,13 @@ namespace WebStore.Controllers;
 public class EmployeesController : Controller
 {
     private readonly IEmployeesData _Employees;
+    private readonly IMapper _Mapper;
 
-    public EmployeesController(IEmployeesData Employees) => _Employees = Employees;
+    public EmployeesController(IEmployeesData Employees, IMapper Mapper)
+    {
+        _Employees = Employees;
+        _Mapper = Mapper;
+    }
 
     public IActionResult Index()
     {
@@ -41,14 +47,16 @@ public class EmployeesController : Controller
         if (employee is null)
             return NotFound();
 
-        var view_model = new EmployeeViewModel
-        {
-            Id = employee.Id,
-            LastName = employee.LastName,
-            Name = employee.FirstName,
-            Patronymic = employee.Patronymic,
-            Age = employee.Age,
-        };
+        var view_model = _Mapper.Map<EmployeeViewModel>(employee);
+        //var view_model = employee.ToView();
+        //var view_model = new EmployeeViewModel
+        //{
+        //    Id = employee.Id,
+        //    LastName = employee.LastName,
+        //    Name = employee.FirstName,
+        //    Patronymic = employee.Patronymic,
+        //    Age = employee.Age,
+        //};
 
         return View(view_model);
     }
@@ -65,14 +73,16 @@ public class EmployeesController : Controller
         if (!ModelState.IsValid)
             return View(Model);
 
-        var employee = new Employee
-        {
-            Id = Model.Id,
-            LastName = Model.LastName,
-            FirstName = Model.Name,
-            Patronymic = Model.Patronymic,
-            Age = Model.Age,
-        };
+        var employee = _Mapper.Map<Employee>(Model);
+        //var employee = Model.FromView();
+        //var employee = new Employee
+        //{
+        //    Id = Model.Id,
+        //    LastName = Model.LastName,
+        //    FirstName = Model.Name,
+        //    Patronymic = Model.Patronymic,
+        //    Age = Model.Age,
+        //};
 
         if (Model.Id == 0)
         {
