@@ -51,7 +51,8 @@ services.ConfigureApplicationCookie(opt =>
     opt.SlidingExpiration = true;
 });
 
-services.AddScoped<IEmployeesData, InMemoryEmployeesData>();        // самый универсальный
+//services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+services.AddScoped<IEmployeesData, SqlEmployeesData>();
 //services.AddScoped<IProductData, InMemoryProductData>();
 services.AddScoped<IProductData, SqlProductData>();
 
