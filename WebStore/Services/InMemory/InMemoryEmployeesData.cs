@@ -21,9 +21,27 @@ public class InMemoryEmployeesData : IEmployeesData
             _LastFreeId = 1;
     }
 
+    public int GetCount() => _Employees.Count;
+
     public IEnumerable<Employee> GetAll()
     {
         return _Employees;
+    }
+
+    public IEnumerable<Employee> Get(int Skip, int Take) //=> _Employees.Skip(Skip).Take(Take);
+    {
+        IEnumerable<Employee> query = _Employees;
+
+        if (Take == 0) return Enumerable.Empty<Employee>();
+
+        if (Skip > 0)
+        {
+            if(Skip > _Employees.Count) return Enumerable.Empty<Employee>();
+
+            query = query.Skip(Skip);
+        }
+
+        return query.Take(Take);
     }
 
     public Employee? GetById(int id)

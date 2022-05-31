@@ -16,7 +16,21 @@ public class SqlEmployeesData : IEmployeesData
         _Logger = Logger;
     }
 
+    public int GetCount() => _db.Employees.Count();
+
     public IEnumerable<Employee> GetAll() => _db.Employees;
+
+    public IEnumerable<Employee> Get(int Skip, int Take)
+    {
+        if (Take == 0) return Enumerable.Empty<Employee>();
+
+        IQueryable<Employee> query = _db.Employees;
+
+        if(Skip > 0)
+            query = query.Skip(Skip);
+
+        return query.Take(Take);
+    }
 
     //public Employee? GetById(int id) => _db.Employees.FirstOrDefault(e => e.Id == id);
     //public Employee? GetById(int id) => _db.Employees.SingleOrDefault(e => e.Id == id);
