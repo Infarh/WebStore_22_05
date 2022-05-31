@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using WebStore.Models;
+
+using WebStore.Domain.Entities;
 using WebStore.ViewModels;
 
 namespace WebStore.Infrastructure.Mapping;
