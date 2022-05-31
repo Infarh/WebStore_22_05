@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+
 using WebStore.Domain.Entities.Identity;
 using WebStore.ViewModels.Identity;
 
@@ -48,14 +49,47 @@ public class AccountController : Controller
             ModelState.AddModelError("", error.Description);
 
         var error_info = string.Join(", ", creation_result.Errors.Select(e => e.Description));
-        _Logger.LogWarning("Ошибка при регистрации пользователя {0}:{1}", 
-            user, 
+        _Logger.LogWarning("Ошибка при регистрации пользователя {0}:{1}",
+            user,
             error_info);
 
         return View(Model);
     }
 
-    public IActionResult Login() => View();
+    public IActionResult Login(string? ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(LoginViewModel Model)
+    {
+        if (!ModelState.IsValid)
+            return View(Model);
+
+        var login_result = await _SignInManager.PasswordSignInAsync(
+            Model.UserName,
+            Model.Password,
+            Model.RememberMe,
+            lockoutOnFailure: true);
+
+        if (login_result.Succeeded)
+        {
+            _Logger.LogInformation("Пользователь {0} успешно вошёл в систему", Model.UserName);
+
+            //return Redirect(Model.ReturnUrl);
+
+            //if (Url.IsLocalUrl(Model.ReturnUrl))
+            //    return Redirect(Model.ReturnUrl);
+            //return RedirectToAction("Index", "Home");
+
+            return LocalRedirect(Model.ReturnUrl ?? "/");
+        }
+
+        ModelState.AddModelError("", "Неверное имя пользователя, или пароль");
+
+        _Logger.LogWarning("Ошибка входа пользователя {0} - неверное имя, или пароль", Model.UserName);
+
+        return View(Model);
+    }
 
     public IActionResult Logout() => View();
 
