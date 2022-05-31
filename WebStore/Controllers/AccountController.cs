@@ -102,5 +102,9 @@ public class AccountController : Controller
         return RedirectToAction("Index", "Home");
     }
 
-    public IActionResult AccessDenied() => View();
+    public IActionResult AccessDenied(string? ReturnUrl)
+    {
+        ViewBag.ReturnUrl = ReturnUrl!;
+        return View();
+    }
 }
