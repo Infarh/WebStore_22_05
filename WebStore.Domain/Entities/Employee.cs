@@ -1,11 +1,14 @@
-﻿namespace WebStore.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using WebStore.Domain.Entities.Base;
 
-public class Employee
+namespace WebStore.Domain.Entities;
+
+public class Employee : Entity
 {
-    public int Id { get; set; }
-
+    [Required]
     public string LastName { get; set; } = null!;
 
+    [Required]
     public string FirstName { get; set; } = null!;
 
     public string? Patronymic { get; set; }
