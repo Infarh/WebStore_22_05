@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<Employee>
+@{
+    var pages_count = (int?)ViewBag.PagesCount;
+}
 
 <div class="container">
     <h3>Сотрудники</h3>
@@ -60,6 +63,11 @@
     else
     {
         <p>Сотрудники отсутствуют</p>
+    }
+    
+    @if (pages_count != null)
+    {
+        <p>Число страниц - @pages_count</p>
     }
 
     <a asp-controller="Home" asp-action="Index">На главную</a>
