@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.Entities.Base;
 
 namespace WebStore.Domain.Entities;
 
+[Index(nameof(LastName), nameof(FirstName), nameof(Patronymic), nameof(Age), IsUnique = true)]
 public class Employee : Entity
 {
     [Required]
