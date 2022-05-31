@@ -91,7 +91,16 @@ public class AccountController : Controller
         return View(Model);
     }
 
-    public IActionResult Logout() => View();
+    public async Task<IActionResult> Logout()
+    {
+        var user_name = User.Identity!.Name;
+
+        await _SignInManager.SignOutAsync();
+
+        _Logger.LogInformation("Пользователь {0} вышел из системы", user_name);
+
+        return RedirectToAction("Index", "Home");
+    }
 
     public IActionResult AccessDenied() => View();
 }
