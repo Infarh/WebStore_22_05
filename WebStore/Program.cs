@@ -84,6 +84,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseMiddleware<TestMiddleware>();
 
 app.MapGet("/greetings", () => app.Configuration["ServerGreetings"]);
