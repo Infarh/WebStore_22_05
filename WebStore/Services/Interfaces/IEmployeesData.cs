@@ -1,10 +1,14 @@
-﻿using WebStore.Models;
+﻿using WebStore.Domain.Entities;
 
 namespace WebStore.Services.Interfaces;
 
 public interface IEmployeesData
 {
+    int GetCount();
+
     IEnumerable<Employee> GetAll();
+
+    IEnumerable<Employee> Get(int Skip, int Take);
 
     Employee? GetById(int id);
 
