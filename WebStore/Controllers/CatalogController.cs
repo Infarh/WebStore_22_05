@@ -30,4 +30,13 @@ public class CatalogController : Controller
             //Products = products.OrderBy(p => p.Order).ToView()!,
         });
     }
+
+    public IActionResult Details(int Id)
+    {
+        var product = _ProductData.GetProductById(Id);
+        if (product is null)
+            return NotFound();
+
+        return View(product.ToView());
+    }
 }
