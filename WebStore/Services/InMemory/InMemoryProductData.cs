@@ -5,11 +5,14 @@ using WebStore.Services.Interfaces;
 
 namespace WebStore.Services.InMemory;
 
+[Obsolete("Используйте SqlProductData")]
 public class InMemoryProductData : IProductData
 {
     public IEnumerable<Section> GetSections() => TestData.Sections;
+    public Section? GetSectionById(int Id) { throw new NotImplementedException(); }
 
     public IEnumerable<Brand> GetBrands() => TestData.Brands;
+    public Brand? GetBrandById(int Id) { throw new NotImplementedException(); }
 
     public IEnumerable<Product> GetProducts(ProductFilter? Filter = null)
     {
@@ -26,4 +29,6 @@ public class InMemoryProductData : IProductData
 
         return query;
     }
+
+    public Product? GetProductById(int Id) { throw new NotImplementedException(); }
 }

@@ -15,6 +15,8 @@ public static class ProductMapper
             Name = product.Name,
             Price = product.Price,
             ImageUrl = product.ImageUrl,
+            Brand = product.Brand?.Name,
+            Section = product.Section.Name,
         };
 
     public static IEnumerable<ProductViewModel?> ToView(this IEnumerable<Product?> products) =>
