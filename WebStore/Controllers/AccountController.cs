@@ -41,6 +41,8 @@ public class AccountController : Controller
         {
             _Logger.LogInformation("Пользователь {0} зарегистрирован", user);
 
+            await _UserManager.AddToRoleAsync(user, Role.Users);
+
             await _SignInManager.SignInAsync(user, false);
             return RedirectToAction("Index", "Home");
         }
