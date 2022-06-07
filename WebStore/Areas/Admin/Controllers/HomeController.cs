@@ -4,7 +4,7 @@ using WebStore.Domain.Entities.Identity;
 
 namespace WebStore.Areas.Admin.Controllers;
 
-[Area("Admin")]
+//[Area("Admin")]
 [Authorize(Roles = Role.Administrators)]
 public class HomeController : Controller
 {
