@@ -12,7 +12,24 @@ using WebStore.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var config = builder.Configuration;
 var services = builder.Services;
+
+//config.GetSection("DB")["Type"]
+var db_type = config["DB:Type"];
+var db_connection_string = config.GetConnectionString(db_type);
+
+switch (db_type)
+{
+    case "SqlServer":
+        services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(db_connection_string));
+        break;
+    case "Sqlite":
+        services.AddDbContext<WebStoreDB>(opt => opt.UseSqlite(db_connection_string, o => o.MigrationsAssembly("WebStore.DAL.Sqlite")));
+        break;
+}
+
+services.AddScoped<DbInitializer>();
 
 services.AddIdentity<User, Role>(/*opt => { opt... }*/)
    .AddEntityFrameworkStores<WebStoreDB>()
@@ -26,7 +43,7 @@ services.Configure<IdentityOptions>(opt =>
     opt.Password.RequireUppercase = false;
     opt.Password.RequireNonAlphanumeric = false;
     opt.Password.RequiredLength = 3;
-    opt.Password.RequiredUniqueChars = 3; 
+    opt.Password.RequiredUniqueChars = 3;
 #endif
 
     opt.User.RequireUniqueEmail = false;
@@ -58,9 +75,6 @@ services.AddScoped<IProductData, SqlProductData>();
 services.AddScoped<IOrderService, SqlOrderService>();
 services.AddScoped<ICartService, InCookiesCartService>();
 
-services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-services.AddScoped<DbInitializer>();
-
 services.AddControllersWithViews(opt =>
 {
     opt.Conventions.Add(new TestConvention());
@@ -75,8 +89,8 @@ using (var scope = app.Services.CreateScope())
 {
     var db_initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
     await db_initializer.InitializeAsync(
-        RemoveBefore: app.Configuration.GetValue("DbRecreate", false),
-        AddTestData: app.Configuration.GetValue("DbAddTestData", false));
+        RemoveBefore: app.Configuration.GetValue("DB:Recreate", false),
+        AddTestData: app.Configuration.GetValue("DB:AddTestData", false));
 }
 
 if (app.Environment.IsDevelopment())
