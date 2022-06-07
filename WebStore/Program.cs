@@ -21,6 +21,7 @@ var db_connection_string = config.GetConnectionString(db_type);
 
 switch (db_type)
 {
+    case "DockerDB":
     case "SqlServer":
         services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(db_connection_string));
         break;
