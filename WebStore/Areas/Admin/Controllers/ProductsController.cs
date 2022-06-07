@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WebStore.Domain.Entities.Identity;
 using WebStore.Services.Interfaces;
 
 namespace WebStore.Areas.Admin.Controllers;
 
+[Authorize(Roles = Role.Administrators)]
 public class ProductsController : Controller
 {
     private readonly IProductData _ProductData;
@@ -19,4 +22,8 @@ public class ProductsController : Controller
         var products = _ProductData.GetProducts();
         return View(products);
     }
+
+    public IActionResult Edit(int id) => View();
+
+    public IActionResult Delete(int id) => View();
 }
