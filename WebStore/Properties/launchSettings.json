@@ -1,18 +1,9 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:39602",
-      "sslPort": 0
-    }
-  },
   "profiles": {
     "WebStore": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        //"ASPNETCORE_ENVIRONMENT": "Production"
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5000",
