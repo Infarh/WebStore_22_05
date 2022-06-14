@@ -71,13 +71,14 @@ services.ConfigureApplicationCookie(opt =>
     opt.SlidingExpiration = true;
 });
 
+services.AddHttpClient<IValuesService, ValuesClient>(client => client.BaseAddress = new(config["WebAPI"]));
+
 //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
 services.AddScoped<IEmployeesData, SqlEmployeesData>();
 //services.AddScoped<IProductData, InMemoryProductData>();
 services.AddScoped<IProductData, SqlProductData>();
 services.AddScoped<IOrderService, SqlOrderService>();
 services.AddScoped<ICartService, InCookiesCartService>();
-services.AddScoped<IValuesService, ValuesClient>();
 
 services.AddControllersWithViews(opt =>
 {
