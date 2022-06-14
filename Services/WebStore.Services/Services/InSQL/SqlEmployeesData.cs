@@ -1,4 +1,5 @@
-﻿using WebStore.DAL.Context;
+﻿using Microsoft.Extensions.Logging;
+using WebStore.DAL.Context;
 using WebStore.DAL.Migrations;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
