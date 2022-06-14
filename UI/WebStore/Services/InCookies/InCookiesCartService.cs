@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using WebStore.Domain.Entities;
+using WebStore.Domain.ViewModels;
 using WebStore.Infrastructure.Mapping;
-using WebStore.Services.Interfaces;
-using WebStore.ViewModels;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Services.InCookies;
 

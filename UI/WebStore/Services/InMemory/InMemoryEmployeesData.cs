@@ -1,6 +1,6 @@
 ﻿using WebStore.Data;
 using WebStore.Domain.Entities;
-using WebStore.Services.Interfaces;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Services.InMemory;
 
