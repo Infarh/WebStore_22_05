@@ -74,10 +74,16 @@ services.ConfigureApplicationCookie(opt =>
     opt.SlidingExpiration = true;
 });
 
-services.AddHttpClient<IValuesService, ValuesClient>(client => client.BaseAddress = new(config["WebAPI"]));
-services.AddHttpClient<IEmployeesData, EmployeesClient>(client => client.BaseAddress = new(config["WebAPI"]));
-services.AddHttpClient<IProductData, ProductsClient>(client => client.BaseAddress = new(config["WebAPI"]));
-services.AddHttpClient<IOrderService, OrdersClient>(client => client.BaseAddress = new(config["WebAPI"]));
+services.AddHttpClient("WebStoreApi", client => client.BaseAddress = new(config["WebAPI"]))
+   .AddTypedClient<IValuesService, ValuesClient>()
+   .AddTypedClient<IEmployeesData, EmployeesClient>()
+   .AddTypedClient<IProductData, ProductsClient>()
+   .AddTypedClient<IOrderService, OrdersClient>();
+
+//services.AddHttpClient<IValuesService, ValuesClient>(client => client.BaseAddress = new(config["WebAPI"]));
+//services.AddHttpClient<IEmployeesData, EmployeesClient>(client => client.BaseAddress = new(config["WebAPI"]));
+//services.AddHttpClient<IProductData, ProductsClient>(client => client.BaseAddress = new(config["WebAPI"]));
+//services.AddHttpClient<IOrderService, OrdersClient>(client => client.BaseAddress = new(config["WebAPI"]));
 
 //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
 //services.AddScoped<IEmployeesData, SqlEmployeesData>();
