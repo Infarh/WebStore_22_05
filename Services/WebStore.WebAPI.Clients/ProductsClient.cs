@@ -1,4 +1,7 @@
-﻿using WebStore.Domain;
+﻿using System.Net;
+using System.Net.Http.Json;
+using WebStore.Domain;
+using WebStore.Domain.DTO;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 using WebStore.WebAPI.Clients.Base;
@@ -11,31 +14,47 @@ public class ProductsClient : BaseClient, IProductData
 
     public IEnumerable<Section> GetSections()
     {
-        throw new NotImplementedException();
+        var result = Get<IEnumerable<SectionDTO>>($"{Address}/sections");
+        return result.FromDTO();
     }
 
     public Section? GetSectionById(int Id)
     {
-        throw new NotImplementedException();
+        var result = Get<SectionDTO>($"{Address}/sections/{Id}");
+        return result.FromDTO();
     }
 
     public IEnumerable<Brand> GetBrands()
     {
-        throw new NotImplementedException();
+        var result = Get<IEnumerable<BrandDTO>>($"{Address}/brands");
+        return result.FromDTO();
     }
 
     public Brand? GetBrandById(int Id)
     {
-        throw new NotImplementedException();
+        var result = Get<BrandDTO>($"{Address}/brands/{Id}");
+        return result.FromDTO();
     }
 
     public IEnumerable<Product> GetProducts(ProductFilter? Filter = null)
     {
-        throw new NotImplementedException();
+        var response = Post(Address, Filter ?? new());
+
+        if (response.StatusCode == HttpStatusCode.NoContent)
+            return Enumerable.Empty<Product>();
+
+        var result = response
+           .EnsureSuccessStatusCode()
+           .Content
+           .ReadFromJsonAsync<IEnumerable<ProductDTO>>()
+           .Result;
+
+        return result.FromDTO();
     }
 
     public Product? GetProductById(int Id)
     {
-        throw new NotImplementedException();
+        var result = Get<ProductDTO>($"{Address}/{Id}");
+        return result.FromDTO();
     }
 }
