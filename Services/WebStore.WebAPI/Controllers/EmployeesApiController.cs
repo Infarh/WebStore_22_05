@@ -69,7 +69,7 @@ public class EmployeesApiController : ControllerBase
     {
         var result = _EmployeesData.Edit(employee);
         if (result)
-            Ok(true);
+            return Ok(true);
         return NotFound(false);
     }
 
