@@ -1,12 +1,13 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+
 using WebStore.Domain;
 using WebStore.Domain.DTO;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 using WebStore.WebAPI.Clients.Base;
 
-namespace WebStore.WebAPI.Clients;
+namespace WebStore.WebAPI.Clients.Products;
 
 public class ProductsClient : BaseClient, IProductData
 {

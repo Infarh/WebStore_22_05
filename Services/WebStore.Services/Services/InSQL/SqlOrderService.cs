@@ -27,6 +27,7 @@ public class SqlOrderService : IOrderService
         var orders = await _db.Orders
            .Include(order => order.User)
            .Include(order => order.Items)
+           .ThenInclude(item => item.Product)
            .Where(order => order.User.UserName == UserName)
            .ToArrayAsync(Cancel)
            .ConfigureAwait(false);
@@ -39,6 +40,7 @@ public class SqlOrderService : IOrderService
         var order = await _db.Orders
            .Include(order => order.User)
            .Include(order => order.Items)
+           .ThenInclude(item => item.Product)
            .FirstOrDefaultAsync(order => order.Id == Id, Cancel)
            .ConfigureAwait(false);
 

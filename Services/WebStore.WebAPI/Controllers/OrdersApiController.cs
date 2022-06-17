@@ -43,6 +43,6 @@ public class OrdersApiController : ControllerBase
 
         var order = await _OrderService.CreateOrderAsync(UserName, cart, order_model);
 
-        return CreatedAtAction(nameof(GetOrderById), new { order.Id }, order);
+        return CreatedAtAction(nameof(GetOrderById), new { order.Id }, order.ToDTO());
     }
 }
