@@ -9,7 +9,7 @@ namespace WebStore.WebAPI.Clients.Employees;
 
 public class EmployeesClient : BaseClient, IEmployeesData
 {
-    public EmployeesClient(HttpClient Client, string Address /* Сперциально оставлена ошибка! */)
+    public EmployeesClient(HttpClient Client)
         : base(Client, "api/employees")
     {
     }
