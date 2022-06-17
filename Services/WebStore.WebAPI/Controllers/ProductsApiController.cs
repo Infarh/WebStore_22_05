@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using WebStore.Domain;
+using WebStore.Domain.DTO;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.WebAPI.Controllers;
@@ -19,19 +20,19 @@ public class ProductsApiController : ControllerBase
     }
 
     [HttpGet("sections")]
-    public IActionResult GetSections() => Ok(_ProductData.GetSections());
+    public IActionResult GetSections() => Ok(_ProductData.GetSections().ToDTO());
 
     [HttpGet("sections/{Id:int}")]
     public IActionResult GetSectionById(int Id) => _ProductData.GetSectionById(Id) is { } section
-        ? Ok(section)
+        ? Ok(section.ToDTO())
         : NotFound(new { Id });
 
     [HttpGet("brands")]
-    public IActionResult GetBrands() => Ok(_ProductData.GetBrands());
+    public IActionResult GetBrands() => Ok(_ProductData.GetBrands().ToDTO());
 
     [HttpGet("brands/{Id:int}")]
     public IActionResult GetBrandById(int Id) => _ProductData.GetBrandById(Id) is { } brand
-        ? Ok(brand)
+        ? Ok(brand.ToDTO())
         : NotFound(new { Id });
 
     [HttpPost]
@@ -40,12 +41,12 @@ public class ProductsApiController : ControllerBase
         var products = _ProductData.GetProducts(filter);
 
         if (products.Any())
-            return Ok(products);
+            return Ok(products.ToDTO());
         return NoContent();
     }
 
     [HttpGet("{Id:int}")]
     public IActionResult GetProductById(int Id) => _ProductData.GetProductById(Id) is { } product
-        ? Ok(product)
+        ? Ok(product.ToDTO())
         : NoContent();
 }
