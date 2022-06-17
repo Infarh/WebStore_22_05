@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
+using WebStore.Interfaces.Services;
 using WebStore.Services.Data;
+using WebStore.Services.Services.InCookies;
+using WebStore.Services.Services.InSQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,10 @@ switch (db_type)
 }
 
 services.AddScoped<DbInitializer>();
+
+services.AddScoped<IEmployeesData, SqlEmployeesData>();
+services.AddScoped<IProductData, SqlProductData>();
+services.AddScoped<IOrderService, SqlOrderService>();
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
