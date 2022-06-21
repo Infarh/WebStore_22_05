@@ -8,6 +8,8 @@ namespace WebStore.WebAPI.Controllers;
 /// <summary>Управление сотрудниками</summary>
 [ApiController]
 [Route(WebAPIAddresses.V1.Employees)]
+//[Produces("application/json")]
+//[Produces("application/xml")]
 public class EmployeesApiController : ControllerBase
 {
     private readonly IEmployeesData _EmployeesData;
