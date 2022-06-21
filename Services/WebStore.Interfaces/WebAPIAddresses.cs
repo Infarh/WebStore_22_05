@@ -11,8 +11,8 @@ public static class WebAPIAddresses
 
         public static class Identity
         {
-            public const string Users = "api/users";
-            public const string Roles = "api/roles";
+            public const string Users = "api/v1/identity/users";
+            public const string Roles = "api/v1/identity/roles";
         }
     }
 }
