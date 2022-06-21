@@ -5,6 +5,7 @@ using WebStore.Interfaces.Services;
 
 namespace WebStore.WebAPI.Controllers;
 
+/// <summary>Управление сотрудниками</summary>
 [ApiController]
 [Route(WebAPIAddresses.V1.Employees)]
 public class EmployeesApiController : ControllerBase
@@ -18,6 +19,8 @@ public class EmployeesApiController : ControllerBase
         _Logger = Logger;
     }
 
+    /// <summary>Количество сотрудников</summary>
+    /// <returns></returns>
     [HttpGet("count")] // GET -> api/employees/count
     public IActionResult GetCount()
     {
@@ -25,6 +28,7 @@ public class EmployeesApiController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Полный список сотрудников</summary>
     [HttpGet] // GET -> api/employees
     public IActionResult GetAll()
     {
@@ -35,6 +39,9 @@ public class EmployeesApiController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Фрагмент списка сотрудников</summary>
+    /// <param name="Skip">Пропускаемое количество элементов в начале списка</param>
+    /// <param name="Take">Количество элементов в выборке</param>
     [HttpGet("[[{Skip:int}/{Take:int}]]")] // GET -> api/employees/[2:4]
     [HttpGet("{Skip:int}/{Take:int}")] // GET -> api/employees/2/4
     public IActionResult Get(int Skip, int Take)
@@ -49,6 +56,8 @@ public class EmployeesApiController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Сотрудник с заданным идентификатором</summary>
+    /// <param name="Id">Идентификатор сотрудника</param>
     [HttpGet("{Id:int}")]
     public IActionResult GetById(int Id)
     {
@@ -58,6 +67,8 @@ public class EmployeesApiController : ControllerBase
             : Ok(result);
     }
 
+    /// <summary>Добавление нового сотрудника</summary>
+    /// <param name="employee">Добавляемый сотрудник</param>
     [HttpPost]
     public IActionResult Add([FromBody] Employee employee)
     {
@@ -65,6 +76,8 @@ public class EmployeesApiController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { Id = id }, employee);
     }
 
+    /// <summary>Внесение изменений в информацию о сотруднике</summary>
+    /// <param name="employee">Структура с новой информацией о сотруднике</param>
     [HttpPut]
     public IActionResult Edit([FromBody] Employee employee)
     {
@@ -74,6 +87,8 @@ public class EmployeesApiController : ControllerBase
         return NotFound(false);
     }
 
+    /// <summary>Удаление сотрудника</summary>
+    /// <param name="Id">Идентификатор сотрудника</param>
     [HttpDelete("{Id:int}")]
     public IActionResult Delete(int Id)
     {
