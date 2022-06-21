@@ -21,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 var services = builder.Services;
 
-services.AddIdentity<User, Role>(/*opt => { opt... }*/)
+services.AddIdentity<User, Role>()
    .AddDefaultTokenProviders();
 
 services.AddHttpClient("WebStoreAPIIdentity", client => client.BaseAddress = new(config["WebAPI"]))
@@ -76,16 +76,6 @@ services.AddHttpClient("WebStoreApi", client => client.BaseAddress = new(config[
    .AddTypedClient<IProductData, ProductsClient>()
    .AddTypedClient<IOrderService, OrdersClient>();
 
-//services.AddHttpClient<IValuesService, ValuesClient>(client => client.BaseAddress = new(config["WebAPI"]));
-//services.AddHttpClient<IEmployeesData, EmployeesClient>(client => client.BaseAddress = new(config["WebAPI"]));
-//services.AddHttpClient<IProductData, ProductsClient>(client => client.BaseAddress = new(config["WebAPI"]));
-//services.AddHttpClient<IOrderService, OrdersClient>(client => client.BaseAddress = new(config["WebAPI"]));
-
-//services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
-//services.AddScoped<IEmployeesData, SqlEmployeesData>();
-//services.AddScoped<IProductData, InMemoryProductData>();
-//services.AddScoped<IProductData, SqlProductData>();
-//services.AddScoped<IOrderService, SqlOrderService>();
 services.AddScoped<ICartService, InCookiesCartService>();
 
 services.AddControllersWithViews(opt =>
@@ -97,14 +87,6 @@ services.AddControllersWithViews(opt =>
 services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
-
-//using (var scope = app.Services.CreateScope())
-//{
-//    var db_initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
-//    await db_initializer.InitializeAsync(
-//        RemoveBefore: app.Configuration.GetValue("DB:Recreate", false),
-//        AddTestData: app.Configuration.GetValue("DB:AddTestData", false));
-//}
 
 if (app.Environment.IsDevelopment())
 {
