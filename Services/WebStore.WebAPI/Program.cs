@@ -8,6 +8,7 @@ using WebStore.Interfaces.Services;
 using WebStore.Logging;
 using WebStore.Services.Data;
 using WebStore.Services.Services.InSQL;
+using WebStore.WebAPI.Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddLog4Net();
@@ -107,6 +108,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandler>();
 
 app.MapControllers();
 
