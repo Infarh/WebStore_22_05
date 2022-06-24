@@ -24,6 +24,8 @@ public class ValuesController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
+        throw new Exception();
+
         if (__Values.Count == 0)
             return NoContent();
 
