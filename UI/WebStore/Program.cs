@@ -41,7 +41,7 @@ builder.Host.UseSerilog((host, log) => log.ReadFrom.Configuration(host.Configura
         outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level:u3}]{SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}")
    .WriteTo.RollingFile($@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log")
    .WriteTo.File(new JsonFormatter(",\r\n", true), $@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log.json")
-   .WriteTo.Seq("http://localhost:5341/")
+   .WriteTo.Seq(host.Configuration["SeqAddress"])
 );
 
 var config = builder.Configuration;
