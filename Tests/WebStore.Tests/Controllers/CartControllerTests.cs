@@ -111,4 +111,46 @@ public class CartControllerTests
         order_service_mock.VerifyNoOtherCalls();
         cart_service_mock.VerifyNoOtherCalls();
     }
+
+    [TestMethod]
+    public async Task Checkout_thrown_ArgumentNullException_when_OrderModel_is_null_1()
+    {
+        var cart_service_mock = new Mock<ICartService>();
+        var controller = new CartController(cart_service_mock.Object);
+        var order_service_mock = new Mock<IOrderService>();
+
+        Exception? error = null;
+        try
+        {
+            _ = await controller.Checkout(null!, order_service_mock.Object);
+        }
+        catch (Exception e)
+        {
+            error = e;
+        }
+
+        var argument_null_exception = Assert.IsType<ArgumentNullException>(error);
+        Assert.Equal("OrderModel", argument_null_exception.ParamName);
+    }
+
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public async Task Checkout_thrown_ArgumentNullException_when_OrderModel_is_null_2()
+    {
+        var cart_service_mock = new Mock<ICartService>();
+        var controller = new CartController(cart_service_mock.Object);
+        var order_service_mock = new Mock<IOrderService>();
+
+        _ = await controller.Checkout(null!, order_service_mock.Object);
+    }
+
+    [TestMethod]
+    public async Task Checkout_thrown_ArgumentNullException_when_OrderModel_is_null_3()
+    {
+        var cart_service_mock = new Mock<ICartService>();
+        var controller = new CartController(cart_service_mock.Object);
+        var order_service_mock = new Mock<IOrderService>();
+
+        var argument_null_exception = await Assert.ThrowsAsync<ArgumentNullException>(async () => await controller.Checkout(null!, order_service_mock.Object));
+        Assert.Equal("OrderModel", argument_null_exception.ParamName);
+    }
 }
