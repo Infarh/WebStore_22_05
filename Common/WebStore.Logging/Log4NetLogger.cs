@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Xml;
 using log4net;
-using Microsoft.Extensions.Logging;
 
 namespace WebStore.Logging;
 
