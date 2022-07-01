@@ -7,6 +7,15 @@
             </ul>
         </li> 
         <li><a asp-controller="Employees" asp-action="Index">Сотрудники</a></li>
-        <li><a asp-controller="WebAPI" asp-action="Index">WebAPI</a></li>
+        <li><a asp-controller="WebAPI" asp-action="Index" class="@IsActive("WebAPI")">WebAPI</a></li>
     </ul>
 </div>
+
+@functions
+{
+    string? IsActive(string Controller, string Action = "Index") =>
+        Equals(Controller, ViewContext.RouteData.Values["controller"]) &&
+        Equals(Action, ViewContext.RouteData.Values["action"])
+            ? "active"
+            : null;
+}
