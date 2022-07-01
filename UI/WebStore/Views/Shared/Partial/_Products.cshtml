@@ -10,7 +10,15 @@
                     <div class="productinfo text-center">
                         <img src="~/images/shop/@product.ImageUrl" alt="@product.Name" />
                         <h2>@product.Price.ToString("c2")</h2>
-                        <p><a asp-controller="Catalog" asp-action="Details" asp-route-Id="@product.Id">@product.Name</a></p>
+                        <p>
+                            <a asp-controller="Catalog" 
+                               asp-action="Details" 
+                               asp-route-Id="@product.Id"
+                               asp-route-SectionId="@Context.Request.Query["SectionId"]"
+                               asp-route-BrandId="@Context.Request.Query["BrandId"]">
+                                @product.Name
+                            </a>
+                        </p>
                         <a asp-controller="Cart" asp-action="Add" asp-route-Id="@product.Id" 
                            class="btn btn-default add-to-cart">
                             <i class="fa fa-shopping-cart"></i>В корзину
@@ -19,7 +27,15 @@
                     <div class="product-overlay">
                         <div class="overlay-content">
                             <h2>@product.Price.ToString("c2")</h2>
-                            <p><a asp-controller="Catalog" asp-action="Details" asp-route-Id="@product.Id">@product.Name</a></p>
+                            <p>
+                                <a asp-controller="Catalog" 
+                                   asp-action="Details" 
+                                   asp-route-Id="@product.Id"
+                                   asp-route-SectionId="@Context.Request.Query["SectionId"]"
+                                   asp-route-BrandId="@Context.Request.Query["BrandId"]">
+                                    @product.Name
+                                </a>
+                            </p>
                             <a asp-controller="Cart" asp-action="Add" asp-route-Id="@product.Id" 
                                class="btn btn-default add-to-cart">
                                 <i class="fa fa-shopping-cart"></i>В корзину

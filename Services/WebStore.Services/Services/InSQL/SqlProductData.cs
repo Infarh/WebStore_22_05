@@ -18,7 +18,7 @@ public class SqlProductData : IProductData
        .Include(s => s.Products)
        .FirstOrDefault(s => s.Id == Id);
 
-    public IEnumerable<Brand> GetBrands() => _db.Brands/*.AsEnumerable()*/;
+    public IEnumerable<Brand> GetBrands() => _db.Brands.Include(b => b.Products)/*.AsEnumerable()*/;
 
     public Brand? GetBrandById(int Id) => _db.Brands
        .Include(b => b.Products)
