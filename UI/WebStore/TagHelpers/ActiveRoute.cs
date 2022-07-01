@@ -8,6 +8,7 @@ namespace WebStore.TagHelpers;
 public class ActiveRoute : TagHelper
 {
     private const string AttributeName = "is-active-route";
+    private const string IgnoreAction = "ignore-action";
 
     [HtmlAttributeName("asp-controller")]
     public string Controller { get; set; } = null!;
@@ -25,18 +26,20 @@ public class ActiveRoute : TagHelper
     {
         output.Attributes.RemoveAll(AttributeName);
 
-        if (IsActive())
+        var is_ignore_action = output.Attributes.RemoveAll(IgnoreAction);
+
+        if (IsActive(is_ignore_action))
             MakeActive(output);
     }
 
-    private bool IsActive()
+    private bool IsActive(bool IsIgnoreAction)
     {
         var route_values = ViewContext.RouteData.Values;
 
         var route_controller = route_values["controller"]?.ToString();
         var route_action = route_values["action"]?.ToString();
 
-        if (Action is { Length: > 0 } action && !string.Equals(action, route_action))
+        if (!IsIgnoreAction && Action is { Length: > 0 } action && !string.Equals(action, route_action))
             return false;
 
         if (Controller is { Length: > 0 } controller && !string.Equals(controller, route_controller))
