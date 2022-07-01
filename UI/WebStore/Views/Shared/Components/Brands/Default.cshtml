@@ -7,9 +7,9 @@
             
             @foreach (var brand in Model)
             {
-                <li>
+                <li @(brand.Id == ViewBag.BrandId ? "class=active" : null)>
                     <a asp-controller="Catalog" asp-action="Index" asp-route-BrandId="@brand.Id">
-                         <span class="pull-right">(50)</span>@brand.Name
+                         <span class="pull-right">(@ViewBag.BrandId)</span>@brand.Name
                     </a>
                 </li>
             }
