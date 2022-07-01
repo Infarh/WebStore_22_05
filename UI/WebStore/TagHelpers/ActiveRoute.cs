@@ -7,8 +7,8 @@ namespace WebStore.TagHelpers;
 [HtmlTargetElement(Attributes = AttributeName)]
 public class ActiveRoute : TagHelper
 {
-    private const string AttributeName = "is-active-route";
-    private const string IgnoreAction = "ignore-action";
+    private const string AttributeName = "ws-is-active-route";
+    private const string IgnoreAction = "ws-ignore-action";
 
     [HtmlAttributeName("asp-controller")]
     public string Controller { get; set; } = null!;
