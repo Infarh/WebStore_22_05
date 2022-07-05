@@ -28,7 +28,8 @@ public class SqlProductData : IProductData
     {
         IQueryable<Product> query = _db.Products
            .Include(p => p.Section)
-           .Include(p => p.Brand);
+           .Include(p => p.Brand)
+           .OrderBy(p => p.Order);
 
         if (Filter is { Ids: { Length: > 0 } ids })
             query = query.Where(p => ids.Contains(p.Id));
