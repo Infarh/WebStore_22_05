@@ -30,7 +30,10 @@ public class CatalogController : Controller
         {
             BrandId = filter.BrandId,
             SectionId = filter.SectionId,
-            Products = products.OrderBy(p => p.Order).Select(p => _Mapper.Map<ProductViewModel>(p))
+            Products = products
+               .Items
+               .OrderBy(p => p.Order)
+               .Select(p => _Mapper.Map<ProductViewModel>(p))
             //Products = products.OrderBy(p => p.Order).ToView()!,
         });
     }

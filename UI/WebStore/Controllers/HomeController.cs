@@ -12,7 +12,11 @@ public class HomeController : Controller
 
     public IActionResult Index([FromServices] IProductData ProductData)
     {
-        var products = ProductData.GetProducts().OrderBy(p => p.Order).Take(6).ToView();
+        var products = ProductData
+           .GetProducts(new() { PageNumber = 1, PageSize = 6})
+           .Items
+           .OrderBy(p => p.Order)
+           .ToView();
 
         ViewBag.Products = products;
 

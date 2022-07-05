@@ -137,4 +137,14 @@ public static class ProductDTOMapper
     public static IEnumerable<ProductDTO> ToDTO(this IEnumerable<Product>? products) => products?.Select(ToDTO)!;
 
     public static IEnumerable<Product> FromDTO(this IEnumerable<ProductDTO>? products) => products?.Select(FromDTO)!;
+
+    [return: NotNullIfNotNull("page")]
+    public static Page<ProductDTO>? ToDTO(this Page<Product>? page) => page is null
+        ? null
+        : new(page.Items.ToDTO(), page.PageNumber, page.PageSize, page.TotalCount);
+
+    [return: NotNullIfNotNull("page")]
+    public static Page<Product>? FromDTO(this Page<ProductDTO>? page) => page is null
+        ? null
+        : new(page.Items.FromDTO(), page.PageNumber, page.PageSize, page.TotalCount);
 }

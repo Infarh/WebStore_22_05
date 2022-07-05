@@ -82,37 +82,38 @@ public class HomControllerTests
         Assert.Equal(expecten_result_string, actual_result_string);
     }
 
-    private class TestProductData : IProductData
-    {
-        public IEnumerable<Section> GetSections() { throw new NotImplementedException(); }
+    //private class TestProductData : IProductData
+    //{
+    //    public IEnumerable<Section> GetSections() { throw new NotImplementedException(); }
 
-        public Section? GetSectionById(int Id) { throw new NotImplementedException(); }
+    //    public Section? GetSectionById(int Id) { throw new NotImplementedException(); }
 
-        public IEnumerable<Brand> GetBrands() { throw new NotImplementedException(); }
+    //    public IEnumerable<Brand> GetBrands() { throw new NotImplementedException(); }
 
-        public Brand? GetBrandById(int Id) { throw new NotImplementedException(); }
+    //    public Brand? GetBrandById(int Id) { throw new NotImplementedException(); }
 
-        public IEnumerable<Product> GetProducts(ProductFilter? Filter = null)
-        {
-            Assert.Null(Filter);
-            return Enumerable.Empty<Product>();
-        }
+    //    public IEnumerable<Product> GetProducts(ProductFilter? Filter = null)
+    //    {
+    //        Assert.Null(Filter);
+    //        return Enumerable.Empty<Product>();
+    //    }
 
-        public Product? GetProductById(int Id) { throw new NotImplementedException(); }
-    }
+    //    public Product? GetProductById(int Id) { throw new NotImplementedException(); }
+    //}
 
     [TestMethod]
     public void Index_returns_with_ViewBag_with_products()
     {
         //var products = Enumerable.Empty<Product>();
-        var products = Enumerable.Range(1, 100).Select(id => new Product { Id = id, Name = $"Product-{id}", Section = new() { Name = "Section" }});
+        const int total_count = 100;
+        var products = Enumerable.Range(1, total_count).Select(id => new Product { Id = id, Name = $"Product-{id}", Section = new() { Name = "Section" }});
         var controller = new HomeController(null!);
 
         //var result = controller.Index(new TestProductData());
 
         var product_data_mock = new Mock<IProductData>();
         product_data_mock.Setup(s => s.GetProducts(It.IsAny<ProductFilter>()))
-           .Returns(products);
+           .Returns(new Page<Product>(products, 1, total_count, total_count));
 
         var result = controller.Index(product_data_mock.Object);
 
