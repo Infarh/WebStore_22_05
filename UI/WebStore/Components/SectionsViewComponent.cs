@@ -40,6 +40,7 @@ public class SectionsViewComponent : ViewComponent
            {
                Id = s.Id,
                Name = s.Name,
+               ProductsCount = s.Products.Count,
            })
            .ToArray();
 
@@ -55,6 +56,7 @@ public class SectionsViewComponent : ViewComponent
                 {
                     Id = child_section.Id,
                     Name = child_section.Name,
+                    ProductsCount = child_section.Products.Count,
                 });
             }
         }

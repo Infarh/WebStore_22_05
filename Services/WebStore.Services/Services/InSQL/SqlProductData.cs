@@ -12,7 +12,7 @@ public class SqlProductData : IProductData
 
     public SqlProductData(WebStoreDB db) => _db = db;
 
-    public IEnumerable<Section> GetSections() => _db.Sections/*.AsEnumerable()*/;
+    public IEnumerable<Section> GetSections() => _db.Sections.Include(s => s.Products)/*.AsEnumerable()*/;
 
     public Section? GetSectionById(int Id) => _db.Sections
        .Include(s => s.Products)
