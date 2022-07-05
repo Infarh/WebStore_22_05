@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.Extensions.Configuration;
 using Moq;
 
 using WebStore.Controllers;
@@ -58,8 +58,9 @@ public class CatalogControllerTests
             });
 
         var mapper_mock = new Mock<IMapper>();
+        var configuration_mock = new Mock<IConfiguration>();
 
-        var controller = new CatalogController(product_data_mock.Object, mapper_mock.Object);
+        var controller = new CatalogController(product_data_mock.Object, mapper_mock.Object, configuration_mock.Object);
 
         var result = controller.Details(expected_id);
 
