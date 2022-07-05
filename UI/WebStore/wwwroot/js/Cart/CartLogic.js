@@ -1,13 +1,21 @@
 ﻿Cart = {
     _properties: {
         getCartViewLink: "",
-        addToCartLink: ""
+        addToCartLink: "",
+        decrementLink: "",
+        removeFromCartLink: ""
     },
 
     init: function(properties) {
         $.extend(Cart._properties, properties);
+        Cart.initEvents();
+    },
 
+    initEvents: function() {
         $(".add-to-cart").click(Cart.addToCart);
+        //$(".cart_quantity_up").click(Cart.incrementItem);
+        //$(".cart_quantity_down").click(Cart.decrementItem);
+        //$(".cart_quantity_delete").click(Cart.removeItem);
     },
 
     addToCart: function(e) {
