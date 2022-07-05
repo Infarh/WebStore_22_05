@@ -26,7 +26,7 @@ public class SiteMapApiController : ControllerBase
         foreach (var brand in ProductData.GetBrands())
             nodes.Add(new(Url.Action("Index", "Catalog", new { BrandId = brand.Id })));
 
-        foreach (var product in ProductData.GetProducts())
+        foreach (var product in ProductData.GetProducts().Items)
             nodes.Add(new(Url.Action("Details", "Catalog", new { product.Id })));
 
         return new SitemapProvider().CreateSitemap(new SitemapModel(nodes));
