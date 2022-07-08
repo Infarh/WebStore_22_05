@@ -33,4 +33,15 @@
         </div>
     </div>
 </section>
-    
+
+@section Scripts
+{
+    <script src="~/js/Catalog/CatalogLogic.js" asp-append-version="false"></script>
+    <script>
+        $(function() {
+            Catalog.init({
+                getViewLink: "@Url.Action("GetProductsAPI","Catalog")"
+            });
+        })
+    </script>
+}
