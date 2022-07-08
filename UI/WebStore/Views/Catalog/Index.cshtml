@@ -19,7 +19,9 @@
             </div>
 
             <div class="col-sm-9 padding-right">
-                <partial name="Partial/_Products" model="Model.Products"/>
+                <div id="catalog-items-container">
+                    <partial name="Partial/_Products" model="Model.Products"/>
+                </div>
                 
                 <paging page-model="Model.PageModel"
                         page-action="Index"
@@ -31,4 +33,15 @@
         </div>
     </div>
 </section>
-    
+
+@section Scripts
+{
+    <script src="~/js/Catalog/CatalogLogic.js" asp-append-version="false"></script>
+    <script>
+        $(function() {
+            Catalog.init({
+                getViewLink: "@Url.Action("GetProductsAPI","Catalog")"
+            });
+        })
+    </script>
+}
