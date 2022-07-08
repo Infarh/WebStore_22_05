@@ -50,6 +50,8 @@ public class Paging : TagHelper
             a.Attributes["href"] = "#";
         }
 
+        PageUrlValues["page"] = PageNumber;
+
         foreach (var (key, value) in PageUrlValues.Select(v => (v.Key, Value: v.Value?.ToString())).Where(v => v.Value?.Length > 0))
             a.MergeAttribute($"data-{key}", value);
 
