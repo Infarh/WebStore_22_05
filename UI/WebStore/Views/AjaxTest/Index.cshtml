@@ -43,7 +43,7 @@
         <div class="col-md-4">
             <h4>Рендринг руками</h4>
 
-            <a class="btn btn-default">Загрузка</a>
+            <a class="btn btn-default" id="load-data-button">Загрузка</a>
             
             <span style="display:none" id="spinner-js">
                 <i class="fa fa-spinner fa-spin"></i>
@@ -65,5 +65,24 @@
                 .append("<br/>")
                 .append("Server time:" + data.serverTime);
         }
+
+        $("#load-data-button").click(e => {
+            e.preventDefault();
+
+            console.log("Starting AJAX-request");
+            $("#spinner-js").show();
+
+            $.get("@Url.Action("GetJSON")", { id: 123, msg: "QWE", Delay: "1000" })
+                .done(data => {
+                    console.log("Response from server");
+                    $("#spinner-js").hide();
+
+                    $("#panel-js")
+                        .empty()
+                        .append("msg:" + data.message)
+                        .append("<br/>")
+                        .append("Server time:" + data.serverTime);
+                });
+        });
     </script>
 }
